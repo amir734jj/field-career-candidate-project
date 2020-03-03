@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1 Ticker information page
+    p.lead Enter list of tickers (comma or newline separated)
+    hr
+    .row
+        .col-sm-6
+            form(action='', method='POST', target='_blank')
+                .form-group
+                    label(for='tickers') Ticker:
+                    textarea#tickers.form-control(placeholder='Enter tickers: AAPL,GOOG', name='tickers')
+                button.btn.btn-primary(type='submit') Submit
