@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
 	const readStream = new stream.PassThrough();
 	readStream.end(fileContents);
 
-	res.set("Content-disposition", "attachment; filename=statistics.csv");
+	res.set("Content-disposition", `attachment; filename=statistics-${new Date().toISOString()}.csv`);
 	res.set("Content-Type", "text/plain");
 
 	readStream.pipe(res);
