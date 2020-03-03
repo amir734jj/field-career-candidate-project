@@ -1,9 +1,9 @@
 import * as _ from "lodash";
-import request from "request-promise";
 import {marketDataUrl} from "../config/statisticsConstants";
+import request from "request-promise";
 
 
-export const resolveMarketStatistics = async (tickers: string[]) => {
+export const resolveMarketStatistics = async (tickers: string) => {
 	const requests = _.chain(tickers || "")
 		.split(/(\r\n|\r|\n|,)+/g)
 		.map(_.trim)
@@ -13,6 +13,7 @@ export const resolveMarketStatistics = async (tickers: string[]) => {
 		.value();
 
 	return _.chain(await Promise.all(requests))
+		.flatten()
 		.filter(_.identity)
 		.filter(x => _.has(x, "symbol") && _.has(x, "profile"))
 		.map(x => ({

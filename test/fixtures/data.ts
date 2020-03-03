@@ -1,0 +1,1 @@
+export const fixtureMarketData = (factory: { define: (arg0: string, arg1: string[]) => void }) => factory.define("MarketData", ["symbol", "profile", "price", "ticker", "companyName", "mktCap", "industry"]);

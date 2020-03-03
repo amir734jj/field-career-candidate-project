@@ -3,6 +3,7 @@ import app from "../../src/app";
 
 describe("GET /", () => {
     it("should return 200 OK", (done) => {
+	    // Arrange, Act, Assert
         request(app).get("/")
             .expect(200, done);
     });

@@ -1,28 +1,25 @@
-import * as mockery from "mockery";
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import factory from "autofixture";
+
+import {fixtureMarketData as configureFixtureMarketData} from "../fixtures/data";
+
+// Configure auto-fixture instance
+configureFixtureMarketData(factory);
+
+jest.mock("request-promise", () => ({
+	__esModule: true,
+	default: jest.fn(() => Promise.resolve(factory.createListOf("MarketData", 5)))
+}));
+
 import {resolveMarketStatistics} from "../../src/logic/statistics";
-import * as Bluebird from "bluebird";
 
 describe("Market Statistics", () => {
-
-	beforeAll(() => {
-		mockery.enable({
-			warnOnReplace: false,
-			warnOnUnregistered: false,
-			useCleanCache: true
-		});
-
-		mockery.registerMock("request-promise", function () {
-			return Bluebird.resolve("");
-		});
-	});
-
-	afterEach(function (done) {
-		mockery.disable();
-		mockery.deregisterAll();
-		done();
-	});
-
 	it("Should return records", async () => {
-		resolveMarketStatistics(["GOOG"]);
+		// Arrange, Act
+		const result = await resolveMarketStatistics("GOOG");
+
+		// Assert
+		expect(result.length).toBe(5);
 	});
 });
