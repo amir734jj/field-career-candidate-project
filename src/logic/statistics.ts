@@ -20,6 +20,11 @@ export const resolveMarketStatistics = async (tickers: string) => {
 			...x["profile"],
 			ticker: x["symbol"]
 		}))
-		.map(x => _.pick(x, "ticker", "price", "companyName", "mktCap", "industry"))
+		.map(x => ({
+			...x,
+			low: _.chain(x).get("range", "").split("-").head().value(),
+		  hi: _.chain(x).get("range", "").split("-").last().value(),
+		}))
+		.map(x => _.pick(x, "low", "hi", "volAvg", "ticker", "price", "companyName", "mktCap", "industry"))
 		.value();
 };

@@ -2,11 +2,14 @@ import {createObjectCsvStringifier} from "csv-writer";
 
 const csvWriterInstance = createObjectCsvStringifier({
 	header: [
-		{ id: "ticker", title: "TICKER"},
-		{ id: "price", title: "PRICE"},
-		{ id: "mktCap", title: "MARKET-CAP"},
-		{ id: "companyName", title: "COMPANY-NAME"},
-		{ id: "industry", title: "INDUSTRY"}
+		{ id: "ticker", title: "Ticker"},
+		{ id: "volAvg", title: "Quantity"},
+		{ id: "price", title: "Current Price"},
+		{ id: "hi", title: "High"},
+		{ id: "low", title: "Low"},
+		{ id: "mktCap", title: "Current Value"},
+		{ id: "companyName", title: "Company Name"},
+		{ id: "industry", title: "Industry"}
 	],
 });
 
