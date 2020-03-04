@@ -32,7 +32,11 @@ export const resolveMarketStatistics = async (tickers: string): Promise<MarketSt
 		.value();
 
 	// Calculate total market cap
-	const totalMarketCap = _.sum(_.map(records, "mktCap"));
+	const totalMarketCap = _.chain(records)
+		.map("mktCap")
+		.map(parseFloat)
+		.sum()
+		.value();
 
 	return [records, totalMarketCap];
 };

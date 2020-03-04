@@ -13,7 +13,6 @@ jest.mock("request-promise", () => ({
 }));
 
 import {resolveMarketStatistics} from "../../src/logic/statistics";
-import _ from "lodash";
 
 describe("Market Statistics", () => {
 	it("Should return records", async () => {

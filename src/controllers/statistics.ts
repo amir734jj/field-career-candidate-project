@@ -2,6 +2,7 @@ import express from "express";
 import {resolveMarketStatistics} from "../logic/statistics";
 import {csvWriter} from "../logic/csv";
 import * as stream from "stream";
+import logger from "../util/logger";
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
 	const [records, sum] = await resolveMarketStatistics(req.body["tickers"]);
 	const csv = csvWriter(records, sum);
+
 	const fileContents = Buffer.from(csv, "utf8");
 
 	const readStream = new stream.PassThrough();
@@ -21,6 +23,8 @@ router.post("/", async (req, res) => {
 	res.set("Content-Type", "text/plain");
 
 	readStream.pipe(res);
+
+	logger.info("Successfully downloaded market data");
 });
 
 export default router;
