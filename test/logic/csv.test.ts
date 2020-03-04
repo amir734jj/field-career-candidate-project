@@ -15,10 +15,10 @@ describe("GET /", () => {
     	const records = factory.createListOf("MarketData", 5);
 
     	// Act
-      const csv = csvWriter(records);
+      const csv = csvWriter(records, 10);
 
       // Assert
       expect(csv.length).not.toBe(0);
-      expect(csv.trim().split(/\r|\n/).length).toBe(5 + 1);
+      expect(csv.trim().split(/\r|\n/).length).toBe(5 + 1 + 1);
     });
 });

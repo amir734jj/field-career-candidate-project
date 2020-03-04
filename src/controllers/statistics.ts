@@ -10,8 +10,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-	const records = await resolveMarketStatistics(req.body["tickers"]);
-	const csv = csvWriter(records);
+	const [records, sum] = await resolveMarketStatistics(req.body["tickers"]);
+	const csv = csvWriter(records, sum);
 	const fileContents = Buffer.from(csv, "utf8");
 
 	const readStream = new stream.PassThrough();
